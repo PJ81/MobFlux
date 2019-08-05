@@ -1,0 +1,33 @@
+import * as Const from "./const.js";
+import State from "./state.js";
+
+export default class StartState extends State {
+  constructor() {
+    super();
+
+    this.keyboard.addKey(32, () => {
+      window.dispatchEvent(new CustomEvent("stateChange", {
+        detail: { state: Const.PLAY }
+      }));
+    });
+  }
+
+  start() { }
+
+  update(dt: number) {
+    //
+  }
+
+  draw(ctx: CanvasRenderingContext2D) {
+    ctx.fillStyle = "#fff";
+    ctx.textAlign = "center";
+    ctx.font = "28px 'Press Start 2P'";
+    ctx.fillText(`MOBFLUX`, Const.WIDTH >> 1, Const.HEIGHT * .3);
+    ctx.font = "10px 'Press Start 2P'";
+    ctx.fillText(`FIRE: SPACE`, Const.WIDTH >> 1, Const.HEIGHT * .45);
+    ctx.fillText(`LEFT: A / LEFT`, Const.WIDTH >> 1, Const.HEIGHT * .49);
+    ctx.fillText(`RIGHT: D / RIGHT`, Const.WIDTH >> 1, Const.HEIGHT * .53);
+    ctx.font = "8px 'Press Start 2P'";
+    ctx.fillText(`[FIRE] TO PLAY`, Const.WIDTH >> 1, Const.HEIGHT * .8);
+  }
+}

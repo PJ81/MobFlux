@@ -1,14 +1,17 @@
 * {
   margin: 0;
   border: 0;
+  font-family: 'Press Start 2P', cursive;
 }
 
 body {
-  background-color: #222;
+  background-color: #111;
   text-align: center;
 }
 
 canvas {
-  border: 1px solid #000;
+  background-color: #000;
+  border: 1px solid #ddd;
+  cursor: none;
   margin: 50px auto;
 }
