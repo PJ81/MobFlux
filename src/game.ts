@@ -19,9 +19,11 @@ export default class Game {
   constructor() {
     this.canvas = document.createElement('canvas');
     this.canvas.id = "main";
+    this.canvas.style.imageRendering = "pixelated";
     this.canvas.width = Const.WIDTH * Const.SCALE;
     this.canvas.height = Const.HEIGHT * Const.SCALE;
     this.ctx = this.canvas.getContext('2d');
+    this.ctx.imageSmoothingEnabled = false;
     this.ctx.scale(Const.SCALE, Const.SCALE);
     document.body.appendChild(this.canvas);
     this.res = new Resource();

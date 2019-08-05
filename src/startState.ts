@@ -1,10 +1,12 @@
 import * as Const from "./const.js";
 import State from "./state.js";
+import { GameObject } from "./index.js";
 
 export default class StartState extends State {
-  constructor() {
+  stars: import("./stars.js").default;
+  constructor(go: GameObject) {
     super();
-
+    this.stars = go.stars;
     this.keyboard.addKey(32, () => {
       window.dispatchEvent(new CustomEvent("stateChange", {
         detail: { state: Const.PLAY }
@@ -15,10 +17,11 @@ export default class StartState extends State {
   start() { }
 
   update(dt: number) {
-    //
+    this.stars.update(dt);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
+    this.stars.draw(ctx);
     ctx.fillStyle = "#fff";
     ctx.textAlign = "center";
     ctx.font = "28px 'Press Start 2P'";

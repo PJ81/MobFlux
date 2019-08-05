@@ -3,6 +3,7 @@ import Game from "./game.js"
 import Sound from "./sound.js";
 import Stars from "./stars.js";
 import Enemies from "./enemies.js";
+import Bonus from "./bonus.js";
 import Boss from "./boss.js";
 import Player from "./player.js";
 import Stones from "./stones.js";
@@ -19,6 +20,7 @@ class GameObject {
   stones: Stones;
   stars: Stars;
   enemies: Enemies;
+  bonus: Bonus;
   boss: Boss;
 
   constructor() {
@@ -40,18 +42,18 @@ class Mob extends Game {
   constructor() {
     super();
 
+    this.state;
     this.gameObjs = new GameObject();
     this.score = 0;
     this.hiscore = 0;
-    this.state = new StartState();
 
     window.addEventListener("stateChange", (e: any) => {
       switch (e.detail.state) {
         case Const.GAMEOVER:
-          this.state = new GameOverState(this.score, this.hiscore);
+          this.state = new GameOverState(this.score, this.hiscore, this.gameObjs);
           break;
         case Const.START:
-          this.state = new StartState();
+          this.state = new StartState(this.gameObjs);
           break;
         case Const.PLAY:
           this.state = new PlayState(this.gameObjs);
@@ -64,7 +66,8 @@ class Mob extends Game {
     this.res.loadImages([
       "boss.gif", "bul0.gif", "bul1.gif", "bul2.gif", "bul3.gif", "ene0.gif",
       "ene1.gif", "ene2.gif", "ene3.gif", "ene4.gif", "ene5.gif", "ene6.gif",
-      "hero.gif", "rand.gif", "stn0.gif", "stn1.gif", "stn2.gif", "stn3.gif"
+      "hero.gif", "rnd0.gif", "rnd1.gif", "stn0.gif", "stn1.gif", "stn2.gif",
+      "stn3.gif"
     ], () => {
       this.load();
       this.loop();
@@ -89,8 +92,10 @@ class Mob extends Game {
       stones: new Stones([this.res.images[Const.STN0], this.res.images[Const.STN1], this.res.images[Const.STN2], this.res.images[Const.STN3]]),
       stars: new Stars(),
       enemies: new Enemies(),
-      boss: new Boss()
-    }
+      boss: new Boss(),
+      bonus: new Bonus([this.res.images[Const.RND0], this.res.images[Const.RND1]])
+    };
+    this.state = new StartState(this.gameObjs);
   }
 }
 

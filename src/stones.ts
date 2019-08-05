@@ -23,7 +23,7 @@ class Stone extends Entity {
     ctx.save();
     ctx.translate(this.left + w, this.top + h)
     ctx.rotate(this.angle * this.direction)
-    ctx.drawImage(this.image, -w, -h);
+    ctx.drawImage(this.frames[this.animFrame], -w, -h);
     ctx.restore();
   }
 }

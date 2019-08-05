@@ -3,7 +3,8 @@ import Entity from "./entity.js";
 
 export default class Player extends Entity {
   coolDownTime: number;
-  move: (d: number) => void;
+  moveLeft: boolean;
+  moveRight: boolean;
   shoot: () => number;
 
   constructor(x: number, y: number, img: HTMLImageElement) {
@@ -11,8 +12,9 @@ export default class Player extends Entity {
     this.velocity.set(120, 0);
     this.energy = 100;
     this.coolDownTime = .1;
+    this.moveLeft = this.moveRight = false;
     this.setImage(img);
-    this.move = (d: number) => this.direction = d;
+
     this.shoot = () => this.coolDownTime = .25;
   }
 
@@ -20,17 +22,12 @@ export default class Player extends Entity {
     if (this.coolDownTime && (this.coolDownTime -= dt) < 0) {
       this.coolDownTime = 0;
     }
-
-    this.pos.x += this.velocity.x * this.direction * dt;
-    if (this.left < 0) {
-      this.pos.x = this.width >> 1;
-    } else if (this.right > Const.WIDTH - 2) {
-      this.pos.x = Const.WIDTH - (this.width >> 1) - 2;
-    }
+    if (this.moveLeft && this.left > 2) this.pos.x -= dt * this.velocity.x;
+    if (this.moveRight && this.right < Const.WIDTH - 2) this.pos.x += dt * this.velocity.x;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.drawImage(this.image, this.left | 0, this.top);
+    super.draw(ctx);
     ctx.fillStyle = "#fff";
     const x = Const.WIDTH / 2 - this.energy / 2,
       y = this.bottom + 6;
