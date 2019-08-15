@@ -14,6 +14,8 @@ export default class GameOverState extends State {
     this.stars = go.stars;
 
     this.keyboard.addKey(32, () => {
+      console.log("START -> STATE");
+
       window.dispatchEvent(new CustomEvent("stateChange", {
         detail: { state: Const.START }
       }));
@@ -30,13 +32,13 @@ export default class GameOverState extends State {
     this.stars.draw(ctx);
     ctx.fillStyle = "#fff";
     ctx.textAlign = "center";
-    ctx.font = "24px 'Press Start 2P'";
-    ctx.fillText(`BEST`, Const.WIDTH >> 1, Const.HEIGHT * .3);
-    ctx.fillText(`YOURS`, Const.WIDTH >> 1, Const.HEIGHT * .6);
-    ctx.font = "20px 'Press Start 2P'";
-    ctx.fillText(`${this.hiScr}`, Const.WIDTH >> 1, Const.HEIGHT * .4);
-    ctx.fillText(`${this.scr}`, Const.WIDTH >> 1, Const.HEIGHT * .7);
-    ctx.font = "8px 'Press Start 2P'";
-    ctx.fillText(`[SPACE] TO START`, Const.WIDTH >> 1, Const.HEIGHT * .8);
+    ctx.font = "16px 'Press Start 2P'";
+    ctx.fillText(`BEST SCORE`, Const.WIDTH >> 1, Const.HEIGHT * .3);
+    ctx.fillText(`YOUR SCORE`, Const.WIDTH >> 1, Const.HEIGHT * .6);
+    ctx.font = "14px 'Press Start 2P'";
+    ctx.fillText(`${this.hiScr}`, Const.WIDTH >> 1, Const.HEIGHT * .36);
+    ctx.fillText(`${this.scr}`, Const.WIDTH >> 1, Const.HEIGHT * .66);
+    ctx.font = "7px 'Press Start 2P'";
+    ctx.fillText(`[SPACE] TO START`, Const.WIDTH >> 1, Const.HEIGHT * .85);
   }
 }

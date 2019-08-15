@@ -17,26 +17,22 @@ export default class Sound {
   }
 
   playLoop(snd: number) {
-    this.sounds[snd].addEventListener("ended", (e) => {
-      (e.srcElement as HTMLAudioElement).currentTime = 0;
-      (e.srcElement as HTMLAudioElement).play();
-    }, false);
+    this.sounds[snd].loop = true;
     this.play(snd);
   }
 
   play(snd: number) {
     if (this.muted) return;
-    const playPromise = this.sounds[snd].play();
-    if (playPromise !== null) {
-      playPromise.catch(() => {
-        this.sounds[snd].play();
-      })
-    }
+    this.sounds[snd].play();
   }
 
   stop(snd: number) {
     this.sounds[snd].pause();
     this.sounds[snd].currentTime = 0;
+  }
+
+  setVolume(snd: number, vol: number) {
+    this.sounds[snd].volume = vol;
   }
 
   mute(): boolean {

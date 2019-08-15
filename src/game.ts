@@ -37,7 +37,7 @@ export default class Game {
         this.update(Math.min(this.deltaTime, .5));
       }
       this.lastTime = time;
-      this.ctx.clearRect(0, 0, Const.WIDTH, Const.HEIGHT);
+      //this.ctx.clearRect(0, 0, Const.WIDTH, Const.HEIGHT);
       this.draw();
       requestAnimationFrame(this.loop);
     }

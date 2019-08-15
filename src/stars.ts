@@ -10,33 +10,34 @@ class Star {
   constructor(x: number, y: number, p: number) {
     this.pos = new Point(x, y);
     let s: number, z: number, c: string;
+    const clr = ["rgba(219,219,219,", "rgba(255,166,166,", "rgba(166,228,255,", "rgba(255,216,166,"];
 
     switch (p) {
       case 1:
         z = 1;
         s = 1;
-        c = "rgba(255,255,255,.4)";
+        c = `${clr[Math.floor(Math.random() * 4)]}.4)`;
         break;
       case 2:
         z = 1.4;
         s = 3;
-        c = "rgba(255,255,255,.6)";
+        c = `${clr[Math.floor(Math.random() * 4)]}.6)`;
         break;
       case 3:
         z = 1.5;
         s = 6;
-        c = "rgba(255,255,255,1)";
+        c = `${clr[Math.floor(Math.random() * 4)]}.9)`
         break;
     }
     this.size = z;
-    this.speed = s;
+    this.speed = 45 * s;
     this.color = c;
   }
 
   update(dt: number) {
     this.pos.y += this.speed * dt;
     if (this.pos.y > Const.HEIGHT) {
-      this.pos.set(Math.random() * Const.WIDTH, -1);
+      this.pos.set(Math.random() * Const.WIDTH, -Math.random() * 50);
     }
   }
 

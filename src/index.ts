@@ -3,7 +3,6 @@ import Game from "./game.js"
 import Sound from "./sound.js";
 import Stars from "./stars.js";
 import Enemies from "./enemies.js";
-import Bonus from "./bonus.js";
 import Boss from "./boss.js";
 import Player from "./player.js";
 import Stones from "./stones.js";
@@ -11,6 +10,7 @@ import State from "./state.js";
 import GameOverState from "./goState.js";
 import StartState from "./startState.js";
 import PlayState from "./playState.js";
+import Powerup from "./power.js";
 
 export { GameObject };
 
@@ -20,7 +20,7 @@ class GameObject {
   stones: Stones;
   stars: Stars;
   enemies: Enemies;
-  bonus: Bonus;
+  bonus: Powerup;
   boss: Boss;
 
   constructor() {
@@ -35,6 +35,9 @@ class GameObject {
 
 class Mob extends Game {
   state: State;
+  goState: GameOverState;
+  plState: PlayState;
+  stState: StartState;
   score: number;
   hiscore: number;
   gameObjs: GameObject;
@@ -50,13 +53,15 @@ class Mob extends Game {
     window.addEventListener("stateChange", (e: any) => {
       switch (e.detail.state) {
         case Const.GAMEOVER:
-          this.state = new GameOverState(this.score, this.hiscore, this.gameObjs);
+          this.state = this.goState;
           break;
         case Const.START:
-          this.state = new StartState(this.gameObjs);
+          this.reset();
+          this.state = this.stState;
           break;
         case Const.PLAY:
-          this.state = new PlayState(this.gameObjs);
+          this.state = this.plState;
+          this.gameObjs.sound.setVolume(Const.LOOP, .8);
           this.gameObjs.sound.playLoop(Const.LOOP);
           break;
       }
@@ -64,21 +69,24 @@ class Mob extends Game {
     });
 
     this.res.loadImages([
-      "boss.gif", "bul0.gif", "bul1.gif", "bul2.gif", "bul3.gif", "ene0.gif",
-      "ene1.gif", "ene2.gif", "ene3.gif", "ene4.gif", "ene5.gif", "ene6.gif",
-      "hero.gif", "rnd0.gif", "rnd1.gif", "stn0.gif", "stn1.gif", "stn2.gif",
-      "stn3.gif"
+      "boss.gif", "bul0.gif", "bul1.gif", "sht0.gif", "sht1.gif", "enm0.gif",
+      "enm1.gif", "enm2.gif", "enm3.gif", "pow0.gif", "pow1.gif", "pow2.gif",
+      "pow3.gif", "hero.gif", "shld.png", "stn0.gif", "stn1.gif", "stn2.gif",
+      "stn3.gif", "back.jpg", "life.png"
     ], () => {
       this.load();
       this.loop();
     });
 
     this.update = (dt: number) => { this.state.update(dt); };
-    this.draw = () => { this.state.draw(this.ctx); };
+    this.draw = () => {
+      this.ctx.drawImage(this.res.images[Const.BACK], 0, 0);
+      this.state.draw(this.ctx);
+    };
   }
 
   reset() {
-    //
+    this.gameObjs.player.reset();
   }
 
   load() {
@@ -88,14 +96,19 @@ class Mob extends Game {
         "../snd/explo1.mp3", "../snd/explo2.mp3", "../snd/dead.mp3", "../snd/bossdead.mp3",
         "../snd/loop.mp3"
       ]),
-      player: new Player((Const.WIDTH >> 1), Const.HEIGHT - 26, this.res.images[Const.HERO]),
+      player: new Player((Const.WIDTH >> 1), Const.HEIGHT - 50, [this.res.images[Const.HERO], this.res.images[Const.SHLD], this.res.images[Const.SHT0], this.res.images[Const.LIFE]]),
       stones: new Stones([this.res.images[Const.STN0], this.res.images[Const.STN1], this.res.images[Const.STN2], this.res.images[Const.STN3]]),
       stars: new Stars(),
       enemies: new Enemies(),
       boss: new Boss(),
-      bonus: new Bonus([this.res.images[Const.RND0], this.res.images[Const.RND1]])
+      bonus: new Powerup([this.res.images[Const.POW0], this.res.images[Const.POW1], this.res.images[Const.POW2], this.res.images[Const.POW3]])
     };
-    this.state = new StartState(this.gameObjs);
+
+    this.goState = new GameOverState(this.score, this.hiscore, this.gameObjs);
+    this.plState = new PlayState(this.gameObjs);
+    this.stState = new StartState(this.gameObjs);
+
+    this.state = this.stState;
   }
 }
 

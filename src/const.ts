@@ -1,7 +1,7 @@
 
 export const
   TWO_PI = Math.PI * 2,
-  WIDTH = 260,
+  WIDTH = 240,
   HEIGHT = 360,
   SCALE = 2,
   START = 1,
@@ -11,22 +11,24 @@ export const
   BOSS = 0,
   BLT0 = 1,
   BLT1 = 2,
-  BLT2 = 3,
-  BLT3 = 4,
+  SHT0 = 3,
+  SHT1 = 4,
   BAD0 = 5,
   BAD1 = 6,
   BAD2 = 7,
   BAD3 = 8,
-  BAD4 = 9,
-  BAD5 = 10,
-  BAD6 = 11,
-  HERO = 12,
-  RND0 = 13,
-  RND1 = 14,
+  POW0 = 9,
+  POW1 = 10,
+  POW2 = 11,
+  POW3 = 12,
+  HERO = 13,
+  SHLD = 14,
   STN0 = 15,
   STN1 = 16,
   STN2 = 17,
   STN3 = 18,
+  BACK = 19,
+  LIFE = 20,
 
   SHOT = 0,
   PWRUP = 1,
@@ -39,4 +41,6 @@ export const
   LOOP = 8,
 
   RELEASED = 0,
-  PRESSED = 1;
+  PRESSED = 1,
+
+  SHIELD_TIME = 4;

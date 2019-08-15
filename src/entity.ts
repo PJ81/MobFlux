@@ -6,7 +6,7 @@ export default class Entity {
   alive: boolean;
   angle: number;
   energy: number;
-  direction: number;
+  turnDir: number;
   width: number;
   height: number;
   frames: HTMLImageElement[];
@@ -18,7 +18,7 @@ export default class Entity {
     this.pos = new Point(x, y);
     this.velocity = new Point();
     this.hasAnimation = false;
-    this.direction = 0;
+    this.turnDir = 0;
     this.animFrame = 0;
     this.width = 0;
     this.height = 0;
@@ -41,9 +41,14 @@ export default class Entity {
     }
   }
 
-  setImage(img: HTMLImageElement) {
-    this.frames.push(img);
+  setImage(img: HTMLImageElement, idx = -1) {
     if (img) {
+      if (idx < 0) {
+        this.frames.push(img);
+      } else {
+        this.frames[idx] = img;
+      }
+
       this.width = img.width;
       this.height = img.height;
     }

@@ -4,6 +4,7 @@ import { GameObject } from "./index.js";
 
 export default class PlayState extends State {
   gameObj: GameObject;
+  lifeBar: HTMLImageElement;
 
   constructor(go: GameObject) {
     super();
@@ -14,8 +15,8 @@ export default class PlayState extends State {
     this.keyboard.addKey(68, (k: number) => this.gameObj.player.moveRight = k === Const.PRESSED);
     this.keyboard.addKey(39, (k: number) => this.gameObj.player.moveRight = k === Const.PRESSED);
     this.keyboard.addKey(32, () => {
-      this.gameObj.sound.play(Const.SHOT)
-      this.gameObj.player.shoot();
+      console.log("SHOOT");
+      if (this.gameObj.player.shoot()) this.gameObj.sound.play(Const.SHOT)
     });
   }
 
@@ -24,12 +25,22 @@ export default class PlayState extends State {
   update(dt: number) {
     this.gameObj.player.update(dt);
     this.gameObj.stars.update(dt);
-    this.gameObj.stones.update(dt);
+
+    if (!this.gameObj.stones.update(dt)) {
+      this.gameObj.stones.reset();
+    }
+
     if (this.gameObj.bonus.alive) {
       this.gameObj.bonus.update(dt);
     } else if (Math.random() < .5) {
       const x = Math.random() * ((Const.WIDTH - this.gameObj.bonus.width) + (this.gameObj.bonus.width >> 1));
       this.gameObj.bonus.start(x, -30);
+    }
+
+    if (this.gameObj.player.energy <= 0) {
+      window.dispatchEvent(new CustomEvent("stateChange", {
+        detail: { state: Const.GAMEOVER }
+      }));
     }
   }
 
