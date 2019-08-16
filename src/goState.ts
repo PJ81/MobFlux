@@ -1,6 +1,6 @@
 import * as Const from "./const.js";
 import State from "./state.js";
-import { GameObject } from "./index.js";
+import GameObject from "./gameObj.js";
 
 export default class GameOverState extends State {
   hiScr: number;
@@ -12,10 +12,9 @@ export default class GameOverState extends State {
     this.hiScr = arg1;
     this.scr = arg0;
     this.stars = go.stars;
-
+    this.keyboard = go.keyboard;
+    this.keyboard.clear();
     this.keyboard.addKey(32, () => {
-      console.log("START -> STATE");
-
       window.dispatchEvent(new CustomEvent("stateChange", {
         detail: { state: Const.START }
       }));

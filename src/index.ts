@@ -11,40 +11,18 @@ import GameOverState from "./goState.js";
 import StartState from "./startState.js";
 import PlayState from "./playState.js";
 import Powerup from "./power.js";
+import Keyboard from "./keyboard.js";
+import GameObject from "./gameObj.js";
 
-export { GameObject };
-
-class GameObject {
-  sound: Sound;
-  player: Player;
-  stones: Stones;
-  stars: Stars;
-  enemies: Enemies;
-  bonus: Powerup;
-  boss: Boss;
-
-  constructor() {
-    this.sound;
-    this.player;
-    this.stones;
-    this.stars;
-    this.enemies;
-    this.boss;
-  }
-}
 
 class Mob extends Game {
   state: State;
-  goState: GameOverState;
-  plState: PlayState;
-  stState: StartState;
   score: number;
   hiscore: number;
   gameObjs: GameObject;
 
   constructor() {
     super();
-
     this.state;
     this.gameObjs = new GameObject();
     this.score = 0;
@@ -53,14 +31,14 @@ class Mob extends Game {
     window.addEventListener("stateChange", (e: any) => {
       switch (e.detail.state) {
         case Const.GAMEOVER:
-          this.state = this.goState;
+          this.state = new GameOverState(this.score, this.hiscore, this.gameObjs);
           break;
         case Const.START:
           this.reset();
-          this.state = this.stState;
+          this.state = new StartState(this.gameObjs);
           break;
         case Const.PLAY:
-          this.state = this.plState;
+          this.state = new PlayState(this.gameObjs);
           this.gameObjs.sound.setVolume(Const.LOOP, .8);
           this.gameObjs.sound.playLoop(Const.LOOP);
           break;
@@ -87,6 +65,7 @@ class Mob extends Game {
 
   reset() {
     this.gameObjs.player.reset();
+    this.gameObjs.stones.reset();
   }
 
   load() {
@@ -96,6 +75,7 @@ class Mob extends Game {
         "../snd/explo1.mp3", "../snd/explo2.mp3", "../snd/dead.mp3", "../snd/bossdead.mp3",
         "../snd/loop.mp3"
       ]),
+      keyboard: new Keyboard(),
       player: new Player((Const.WIDTH >> 1), Const.HEIGHT - 50, [this.res.images[Const.HERO], this.res.images[Const.SHLD], this.res.images[Const.SHT0], this.res.images[Const.LIFE]]),
       stones: new Stones([this.res.images[Const.STN0], this.res.images[Const.STN1], this.res.images[Const.STN2], this.res.images[Const.STN3]]),
       stars: new Stars(),
@@ -104,11 +84,7 @@ class Mob extends Game {
       bonus: new Powerup([this.res.images[Const.POW0], this.res.images[Const.POW1], this.res.images[Const.POW2], this.res.images[Const.POW3]])
     };
 
-    this.goState = new GameOverState(this.score, this.hiscore, this.gameObjs);
-    this.plState = new PlayState(this.gameObjs);
-    this.stState = new StartState(this.gameObjs);
-
-    this.state = this.stState;
+    this.state = new StartState(this.gameObjs);
   }
 }
 

@@ -1,6 +1,6 @@
 import * as Const from "./const.js";
 import State from "./state.js";
-import { GameObject } from "./index.js";
+import GameObject from "./gameObj.js";
 
 export default class PlayState extends State {
   gameObj: GameObject;
@@ -8,14 +8,15 @@ export default class PlayState extends State {
 
   constructor(go: GameObject) {
     super();
-    this.gameObj = go;
 
+    this.gameObj = go;
+    this.keyboard = go.keyboard;
+    this.keyboard.clear();
     this.keyboard.addKey(65, (k: number) => this.gameObj.player.moveLeft = k === Const.PRESSED);
     this.keyboard.addKey(37, (k: number) => this.gameObj.player.moveLeft = k === Const.PRESSED);
     this.keyboard.addKey(68, (k: number) => this.gameObj.player.moveRight = k === Const.PRESSED);
     this.keyboard.addKey(39, (k: number) => this.gameObj.player.moveRight = k === Const.PRESSED);
     this.keyboard.addKey(32, () => {
-      console.log("SHOOT");
       if (this.gameObj.player.shoot()) this.gameObj.sound.play(Const.SHOT)
     });
   }

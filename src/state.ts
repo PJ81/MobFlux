@@ -14,6 +14,6 @@ export default class State {
   }
 
   constructor() {
-    this.keyboard = new Keyboard();
+    this.keyboard = null;
   }
 }

@@ -62,8 +62,6 @@ export default class Stones {
     s.velocity.set(0, Math.random() * 20 + [5, 15, 25, 35][s.type]);
   }
 
-
-
   update(dt: number): boolean {
     const a = this.stones.filter(e => e.alive);
     a.forEach(s => s.update(dt));

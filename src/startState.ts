@@ -1,15 +1,15 @@
 import * as Const from "./const.js";
 import State from "./state.js";
-import { GameObject } from "./index.js";
+import GameObject from "./gameObj.js";
 
 export default class StartState extends State {
   stars: import("./stars.js").default;
   constructor(go: GameObject) {
     super();
     this.stars = go.stars;
-
+    this.keyboard = go.keyboard;
+    this.keyboard.clear();
     this.keyboard.addKey(32, () => {
-      console.log("PLAY -> STATE");
       window.dispatchEvent(new CustomEvent("stateChange", {
         detail: { state: Const.PLAY }
       }));

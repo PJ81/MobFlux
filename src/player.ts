@@ -31,7 +31,7 @@ export default class Player extends Entity {
     }
   }
 
-  getOneShot(): Bullet {
+  private getOneShot(): Bullet {
     for (const e of this.shots) {
       if (!e.alive) return e;
     }
@@ -78,7 +78,7 @@ export default class Player extends Entity {
       }
     });
 
-    this.energy -= dt;
+    this.energy -= dt * 12;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
