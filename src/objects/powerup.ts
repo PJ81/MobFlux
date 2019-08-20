@@ -1,5 +1,5 @@
-import * as Const from "./const.js";
-import Entity from "./entity.js";
+import * as Const from "../core/const.js";
+import Entity from "../core/entity.js";
 
 export default class Powerup extends Entity {
   value: number;

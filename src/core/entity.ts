@@ -1,3 +1,4 @@
+import * as Const from "../core/const.js"
 import Point from "./point.js";
 
 export default class Entity {
@@ -9,34 +10,38 @@ export default class Entity {
   turnDir: number;
   width: number;
   height: number;
-  frames: HTMLImageElement[];
+  imgFrames: HTMLImageElement[];
   animTimer: number;
-  animFrame: any;
+  animFrame: number;
   hasAnimation: boolean;
 
   constructor(x: number, y: number) {
+    this.alive = true;
     this.pos = new Point(x, y);
     this.velocity = new Point();
-    this.hasAnimation = false;
     this.turnDir = 0;
-    this.animFrame = 0;
     this.width = 0;
     this.height = 0;
-    this.frames = [];
-    this.alive = true;
-    this.angle;
-    this.energy;
+    this.angle = 0;
+    this.energy = 0;
+    this.hasAnimation = false;
+    this.animFrame = 0;
+    this.imgFrames = [];
+  }
+
+  checkBounds() {
+    this.alive = !(this.left > Const.WIDTH || this.top > Const.HEIGHT || this.right < 0 || this.bottom < 0);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    ctx.drawImage(this.frames[this.animFrame], this.left, this.top);
+    ctx.drawImage(this.imgFrames[this.animFrame], this.left, this.top);
   }
 
   update(dt: number) {
     if (this.hasAnimation) {
       if ((this.animTimer -= dt) < 0) {
         this.animTimer = .5;
-        this.animFrame = (this.animFrame + 1) % this.frames.length;
+        this.animFrame = (this.animFrame + 1) % this.imgFrames.length;
       }
     }
   }
@@ -44,11 +49,10 @@ export default class Entity {
   setImage(img: HTMLImageElement, idx = -1) {
     if (img) {
       if (idx < 0) {
-        this.frames.push(img);
+        this.imgFrames.push(img);
       } else {
-        this.frames[idx] = img;
+        this.imgFrames[idx] = img;
       }
-
       this.width = img.width;
       this.height = img.height;
     }
@@ -77,5 +81,14 @@ export default class Entity {
       r: this.right,
       b: this.bottom
     }
+  }
+
+  drawBox(ctx: CanvasRenderingContext2D) {
+    const w = this.right - this.left,
+      h = this.bottom - this.top;
+    ctx.strokeStyle = "#f00";
+    ctx.beginPath()
+    ctx.rect(this.left, this.top, w, h);
+    ctx.stroke();
   }
 }

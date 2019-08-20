@@ -1,5 +1,5 @@
-import * as Const from "./const.js";
-import Point from "./point.js";
+import * as Const from "../core/const.js";
+import Point from "../core/point.js";
 
 class Star {
   pos: Point;

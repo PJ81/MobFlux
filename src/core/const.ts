@@ -11,8 +11,8 @@ export const
   BOSS = 0,
   BLT0 = 1,
   BLT1 = 2,
-  SHT0 = 3,
-  SHT1 = 4,
+  BLT2 = 3,
+  BLT3 = 4,
   BAD0 = 5,
   BAD1 = 6,
   BAD2 = 7,
@@ -43,4 +43,8 @@ export const
   RELEASED = 0,
   PRESSED = 1,
 
-  SHIELD_TIME = 4;
+  SHIELD_TIME = 4,
+
+  RND = (mn: number, mx: number) => {
+    return Math.floor(Math.random() * (mx - mn) + mn);
+  };

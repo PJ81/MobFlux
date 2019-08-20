@@ -1,34 +1,23 @@
-import * as Const from "./const.js";
+import * as Const from "../core/const.js";
 import State from "./state.js";
-import GameObject from "./gameObj.js";
 
 export default class GameOverState extends State {
   hiScr: number;
   scr: number;
-  stars: import("./stars.js").default;
 
-  constructor(arg0: number, arg1: number, go: GameObject) {
+  constructor(arg0: number, arg1: number) {
     super();
     this.hiScr = arg1;
     this.scr = arg0;
-    this.stars = go.stars;
-    this.keyboard = go.keyboard;
-    this.keyboard.clear();
-    this.keyboard.addKey(32, () => {
-      window.dispatchEvent(new CustomEvent("stateChange", {
-        detail: { state: Const.START }
-      }));
-    });
   }
 
   start() { }
 
-  update(dt: number) {
-    this.stars.update(dt);
+  update(dt: number): boolean {
+    return true;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    this.stars.draw(ctx);
     ctx.fillStyle = "#fff";
     ctx.textAlign = "center";
     ctx.font = "16px 'Press Start 2P'";
