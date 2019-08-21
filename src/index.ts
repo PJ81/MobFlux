@@ -28,7 +28,7 @@ class Mob extends Game {
               detail: { state: Const.START }
             }));
           });
-          this.state = new GameOverState(0, 0);
+          this.state = new GameOverState(e.detail.score);
           break;
         case Const.START:
           this.reset();

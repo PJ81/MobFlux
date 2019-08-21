@@ -4,13 +4,11 @@ import { P } from "../core/gameObj.js";
 
 class Bullet extends Entity {
   alive: boolean;
-  type: number;
   partTime: number[];
   times: number[];
 
   constructor() {
     super(0, 0);
-    this.type;
     this.times = [.015, 0, 0, 0];
     this.partTime = [0, 0, 0, 0];
     this.alive = false;
@@ -80,7 +78,11 @@ export default class Bullets {
 
     switch (type) {
       case 0: blt.velocity.set(0, -300); break;
-      case 1: break;
+      case 1:
+        blt.velocity.set(0, 0);
+        blt.score = 6;
+        blt.hitScore = 15;
+        break;
       case 2: break;
       case 3: break;
     }

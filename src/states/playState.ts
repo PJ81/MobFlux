@@ -16,6 +16,7 @@ export default class PlayState extends State {
     this.enemies = new Enemies();
 
     B.setImages([R.images[Const.BLT0], R.images[Const.BLT1], R.images[Const.BLT2], R.images[Const.BLT3]]);
+    B.reset();
 
     K.clear();
     K.addKey(65, (k: number) => this.player.moveLeft = k === Const.PRESSED);
@@ -48,13 +49,6 @@ export default class PlayState extends State {
     }*/
 
     this.checkCollisions();
-
-    if (this.player.energy <= 0) {
-      window.dispatchEvent(new CustomEvent("stateChange", {
-        detail: { state: Const.GAMEOVER }
-      }));
-      return false;
-    }
     return true;
   }
 
@@ -64,22 +58,45 @@ export default class PlayState extends State {
     this.player.draw(ctx);
   }
 
+  decPlayerEnergy(e: number) {
+    this.player.energy -= e;
+    if (this.player.energy <= 0) {
+      window.dispatchEvent(new CustomEvent("stateChange", {
+        detail: {
+          state: Const.GAMEOVER,
+          score: this.player.score
+        },
+      }));
+    }
+  }
+
   checkCollisions() {
     function collideBox(a: any, b: any) {
       return !(((a.b < b.t) || (a.t > b.b) || (a.r < b.l) || (a.l > b.r)));
     }
 
+    const plBx = this.player.box;
     const en = this.enemies.getEnemies().filter(e => e.alive);
     const pb = B.bullets.filter(e => e.type === 0 && e.alive);
+    en.concat(B.bullets.filter(e => e.type !== 0 && e.alive));
 
-    _p:
     for (const b of pb) {
+      nextE:
       for (const e of en) {
         if (b.alive && e.alive && collideBox(b.box, e.box)) {
           e.alive = false;
           b.alive = false;
-          break _p;
+          this.player.score += e.score;
+          break nextE;
         }
+      }
+    }
+
+    const st = this.enemies.getEnemies().filter(e => e.alive);
+    for (const e of st) {
+      if (e.alive && collideBox(plBx, e.box)) {
+        e.alive = false;
+        this.decPlayerEnergy(e.hitScore);
       }
     }
   }

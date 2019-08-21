@@ -1,3 +1,5 @@
+import Entity from "../core/entity.js";
+
 export default class State {
   draw(ctx: CanvasRenderingContext2D) {
     throw new Error("Method not implemented.");
@@ -8,7 +10,7 @@ export default class State {
   start() {
     throw new Error("Method not implemented.");
   }
-  getEntities(): any[] {
+  getEntities(): Entity[] {
     throw new Error("Method not implemented.");
   }
 }

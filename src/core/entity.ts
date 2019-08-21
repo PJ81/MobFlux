@@ -5,18 +5,22 @@ export default class Entity {
   pos: Point;
   velocity: Point;
   alive: boolean;
+  hasAnimation: boolean;
   angle: number;
   energy: number;
   turnDir: number;
   width: number;
   height: number;
-  imgFrames: HTMLImageElement[];
+  type: number;
+  score: number;
+  hitScore: number;
   animTimer: number;
   animFrame: number;
-  hasAnimation: boolean;
+  imgFrames: HTMLImageElement[];
 
   constructor(x: number, y: number) {
     this.alive = true;
+    this.hasAnimation = false;
     this.pos = new Point(x, y);
     this.velocity = new Point();
     this.turnDir = 0;
@@ -24,8 +28,11 @@ export default class Entity {
     this.height = 0;
     this.angle = 0;
     this.energy = 0;
-    this.hasAnimation = false;
+    this.type = 0;
     this.animFrame = 0;
+    this.animTimer = 0;
+    this.score = 0;
+    this.hitScore = 0;
     this.imgFrames = [];
   }
 

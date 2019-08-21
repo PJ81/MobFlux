@@ -1,28 +1,10 @@
-
 import State from "../states/state.js";
 import StateN1 from "../states/stateN1.js";
 import StateN2 from "../states/stateN2.js";
 import StateN3 from "../states/stateN3.js";
 import StateStn from "../states/stateStn.js";
 import StateBoss from "../states/stateBoss.js";
-import { R } from "../core/gameObj.js";
-
-// class Enemy extends Entity {
-//   type: number;
-
-//   constructor() {
-//     super(0, 0);
-//     this.type;
-//   }
-
-//   update(dt: number) {
-//     //
-//   }
-
-//   draw(ctx: CanvasRenderingContext2D) {
-//     //
-//   }
-// }
+import Entity from "../core/entity.js";
 
 export default class Enemies {
   state: State;
@@ -49,7 +31,7 @@ export default class Enemies {
     this.setState(3);
   }
 
-  getEnemies(): any[] {
+  getEnemies(): Entity[] {
     return this.state.getEntities();
   }
 
