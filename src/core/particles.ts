@@ -2,6 +2,7 @@ import Point from "./point.js";
 
 class Particle {
   pos: Point;
+  vel: Point;
   alpha: number;
   color: string;
   size: number;
@@ -13,10 +14,12 @@ class Particle {
     this.color;
     this.alpha;
     this.pos = new Point();
+    this.vel = new Point();
   }
 
-  set(x: number, y: number, s: number, clr: string) {
+  set(x: number, y: number, s: number, clr: string, vx: number, vy: number) {
     this.pos.set(x, y);
+    this.vel.set(vx, vy);
     this.color = clr;
     this.alpha = 1;
     this.size = s;
@@ -29,6 +32,9 @@ class Particle {
       this.alive = false;
       return;
     }
+
+    this.pos.x += this.vel.x * dt;
+    this.pos.y += this.vel.y * dt;
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -49,10 +55,10 @@ export default class Particles {
     }
   }
 
-  addParticle(x: number, y: number, s: number, clr: string) {
+  addParticle(x: number, y: number, s: number, clr: string, vx: number = 0, vy: number = 0) {
     const prt = this.getOneParticle();
     if (!prt) return;
-    prt.set(x, y, s, clr);
+    prt.set(x, y, s, clr, vx, vy);
   }
 
   update(dt: number) {

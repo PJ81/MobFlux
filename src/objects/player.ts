@@ -1,42 +1,49 @@
 import * as Const from "../core/const.js";
 import Entity from "../core/entity.js";
+import { P } from "../core/gameObj.js";
 
 
 export default class Player extends Entity {
   coolDownTime: number;
-  shieldTime: number;
+  shieldTimer: number;
+  startTimer: number;
+  weaponTimer: number;
+  bulletType: number;
+  partTimer: number;
   moveLeft: boolean;
   moveRight: boolean;
   shield: HTMLImageElement;
   lifeBar: HTMLImageElement;
+  activateShield: (t: number) => number;
+  setWeapon: (w: number) => void;
 
   constructor(x: number, y: number, img: HTMLImageElement[]) {
     super(x, y);
     this.velocity.set(120, 0);
     this.energy = 100;
-    this.coolDownTime = .5;
+    this.coolDownTime = Const.COOLDWN_TIME;
     this.moveLeft = this.moveRight = false;
     this.setImage(img[0]);
     this.shield = img[1];
     this.lifeBar = img[2]
-    this.shieldTime = Const.SHIELD_TIME;
+    this.startTimer = this.shieldTimer = 10;
+    this.bulletType = 0;
+    this.partTimer = this.weaponTimer = 0;
+    this.activateShield = (t: number) => this.startTimer = this.shieldTimer = t;
+    this.setWeapon = (w: number) => { this.bulletType = w; this.weaponTimer = 20; }
   }
 
   shoot(): boolean {
     if (!this.coolDownTime) {
-      this.coolDownTime = .2;
+      this.coolDownTime = Const.COOLDWN_TIME;
       return true;
     }
     return false;
   }
 
-  activateShield() {
-    this.shieldTime = Const.SHIELD_TIME;
-  }
-
   reset() {
     this.energy = 100;
-    this.coolDownTime = .1;
+    this.coolDownTime = Const.COOLDWN_TIME;
   }
 
   update(dt: number) {
@@ -44,32 +51,26 @@ export default class Player extends Entity {
     if (this.moveRight && this.right < Const.WIDTH - 2) this.pos.x += dt * this.velocity.x;
 
     if (this.coolDownTime && (this.coolDownTime -= dt) < 0) this.coolDownTime = 0;
-    if (this.shieldTime && (this.shieldTime -= dt) < 0) this.shieldTime = 0;
+    if (this.shieldTimer && (this.shieldTimer -= dt) < 0) this.shieldTimer = 0;
+    if (this.weaponTimer && (this.weaponTimer -= dt) < 0) {
+      this.weaponTimer = 0;
+      this.bulletType = 0;
+    }
 
-    /*this.shots.forEach((e, idx) => {
-      if (e.alive) {
-        e.update(dt);
-        if (e.pos.x < -this.bullet.width || e.pos.y < -this.bullet.height || e.pos.x > Const.WIDTH || e.pos.y > Const.HEIGHT) {
-          this.shots[idx].alive = false;
-        }
-      }
-    });*/
-
-    //this.energy -= dt * 12;
+    if ((this.partTimer -= dt) < 0) {
+      this.partTimer = .025;
+      P.addParticle(Const.RND(this.pos.x - 1, this.pos.x + 1), this.bottom + 2, Const.RND(2, 4), "rgba(255,255,255,", Math.random() < .5 ? -1 : 1, Const.RND(30, 35));
+      P.addParticle(Const.RND(this.pos.x - 1, this.pos.x + 1), this.bottom + 3, Const.RND(2, 4), "rgba(200,200,5,", Math.random() < .5 ? -1 : 1, Const.RND(40, 60));
+      P.addParticle(Const.RND(this.pos.x - 2, this.pos.x + 2), this.bottom + 3, Const.RND(2, 4), "rgba(190,150,5,", Math.random() < .5 ? -1 : 1, Const.RND(60, 100));
+      P.addParticle(Const.RND(this.pos.x - 2, this.pos.x + 2), this.bottom + 4, Const.RND(2, 4), "rgba(190,150,5,", Math.random() < .5 ? -1 : 1, Const.RND(60, 100));
+    }
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    /*this.shots.forEach(e => {
-      if (e.alive) {
-        this.bullet.pos.set(e.pos.x, e.pos.y);
-        this.bullet.draw(ctx);
-      }
-    });*/
-
     super.draw(ctx);
 
-    if (this.shieldTime > 0) {
-      ctx.globalAlpha = 1 / Const.SHIELD_TIME * this.shieldTime;
+    if (this.shieldTimer > 0) {
+      ctx.globalAlpha = 1 / this.startTimer * this.shieldTimer;
       ctx.drawImage(this.shield, this.left - 9, this.top - 9);
       ctx.globalAlpha = 1;
     }
