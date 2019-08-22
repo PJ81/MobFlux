@@ -62,7 +62,7 @@ export default class Player extends Entity {
       P.addParticle(Const.RND(this.pos.x - 1, this.pos.x + 1), this.bottom + 2, Const.RND(2, 4), "rgba(255,255,255,", Math.random() < .5 ? -1 : 1, Const.RND(30, 35));
       P.addParticle(Const.RND(this.pos.x - 1, this.pos.x + 1), this.bottom + 3, Const.RND(2, 4), "rgba(200,200,5,", Math.random() < .5 ? -1 : 1, Const.RND(40, 60));
       P.addParticle(Const.RND(this.pos.x - 2, this.pos.x + 2), this.bottom + 3, Const.RND(2, 4), "rgba(190,150,5,", Math.random() < .5 ? -1 : 1, Const.RND(60, 100));
-      P.addParticle(Const.RND(this.pos.x - 2, this.pos.x + 2), this.bottom + 4, Const.RND(2, 4), "rgba(190,150,5,", Math.random() < .5 ? -1 : 1, Const.RND(60, 100));
+      P.addParticle(Const.RND(this.pos.x - 2, this.pos.x + 2), this.bottom + 4, Const.RND(2, 4), "rgba(200,120,5,", Math.random() < .5 ? -1 : 1, Const.RND(60, 100));
     }
   }
 
