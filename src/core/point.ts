@@ -52,4 +52,8 @@ export default class Point {
     h.normalize();
     return h;
   }
+
+  angleBetween(pt: Point) {
+    return Math.atan2(-(pt.y - this.y), -(pt.x - this.x));
+  }
 }

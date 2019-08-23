@@ -1,4 +1,5 @@
 import Bullet from "./bullet.js";
+import Entity from "../core/entity.js";
 
 export default class Bullets {
   bullets: Bullet[];
@@ -29,8 +30,6 @@ export default class Bullets {
   }
 
   start(x: number, y: number, type: number): boolean {
-
-
     switch (type) {
       case 0:
         const blt = this.getOneShot();
@@ -53,7 +52,15 @@ export default class Bullets {
           blt.velocity.set(240 * Math.cos(a[z]), -240);
         }
         break;
-      case 2: break;
+      case 2:
+        const bt = this.getOneShot();
+        if (!bt) return false;
+        blt.setImage(this.images[type], 0);
+        blt.pos.set(x, y);
+        blt.alive = true;
+        blt.type = type;
+        blt.velocity.set(0, -100);
+        break;
       // enemies
       case 3:
         blt.velocity.set(0, 0);
@@ -72,5 +79,15 @@ export default class Bullets {
 
   draw(ctx: CanvasRenderingContext2D) {
     this.bullets.forEach(e => { if (e.alive) e.draw(ctx); });
+  }
+
+  setTarget(enemies: Entity[]) {
+    if (enemies.length === 1) {
+      this.bullets.forEach(e => {
+        e.type === 2 && e.target.set(enemies[0].pos.x, enemies[0].pos.y);
+      });
+    } else if (enemies.length > 1) {
+      //
+    }
   }
 }

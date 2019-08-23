@@ -24,8 +24,8 @@ class Stone extends Entity {
     const w = this.width >> 1,
       h = this.height >> 1;
     ctx.save();
-    ctx.translate(this.left + w, this.top + h)
-    ctx.rotate(this.angle * this.turnDir)
+    ctx.translate(this.left + w, this.top + h);
+    ctx.rotate(this.angle * this.turnDir);
     ctx.drawImage(this.imgFrames[this.animFrame], -w, -h);
     ctx.restore();
     this.alive = !((this.top - this.height) > Const.HEIGHT);

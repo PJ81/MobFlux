@@ -6,44 +6,62 @@ import { P } from "../core/gameObj.js";
 export default class Player extends Entity {
   coolDownTime: number;
   shieldTimer: number;
-  startTimer: number;
+  startShieldTimer: number;
+  coolDownTimeR: number;
   weaponTimer: number;
-  bulletType: number;
+  weaponType: number;
   partTimer: number;
   moveLeft: boolean;
   moveRight: boolean;
   shield: HTMLImageElement;
   lifeBar: HTMLImageElement;
   activateShield: (t: number) => number;
-  setWeapon: (w: number) => void;
 
   constructor(x: number, y: number, img: HTMLImageElement[]) {
     super(x, y);
     this.velocity.set(120, 0);
     this.energy = 100;
-    this.coolDownTime = Const.COOLDWN_TIME;
+    this.coolDownTimeR = .2;
+    this.coolDownTime = this.coolDownTimeR
     this.moveLeft = this.moveRight = false;
     this.setImage(img[0]);
     this.shield = img[1];
     this.lifeBar = img[2]
-    this.startTimer = this.shieldTimer = 10;
-    this.bulletType = 0;
+    this.startShieldTimer = this.shieldTimer = 10;
+    this.weaponType = 0;
     this.partTimer = this.weaponTimer = 0;
-    this.activateShield = (t: number) => this.startTimer = this.shieldTimer = t;
-    this.setWeapon = (w: number) => { this.bulletType = w; this.weaponTimer = 20; }
+    this.activateShield = (t: number) => this.startShieldTimer = this.shieldTimer = t;
   }
 
   shoot(): boolean {
     if (!this.coolDownTime) {
-      this.coolDownTime = Const.COOLDWN_TIME;
+      this.coolDownTime = this.coolDownTimeR;
       return true;
     }
     return false;
   }
 
+  setWeapon(w: number) {
+    this.weaponType = w;
+    switch (w) {
+      case 0:
+        this.coolDownTime = this.coolDownTimeR = .2;
+        this.weaponTimer = 0;
+        break;
+      case 1:
+        this.coolDownTime = this.coolDownTimeR = .3;
+        this.weaponTimer = 10;
+        break;
+      case 2:
+        this.coolDownTime = this.coolDownTimeR = .4;
+        this.weaponTimer = 14;
+        break;
+    }
+  }
+
   reset() {
     this.energy = 100;
-    this.coolDownTime = Const.COOLDWN_TIME;
+    this.setWeapon(0);
   }
 
   update(dt: number) {
@@ -53,8 +71,7 @@ export default class Player extends Entity {
     if (this.coolDownTime && (this.coolDownTime -= dt) < 0) this.coolDownTime = 0;
     if (this.shieldTimer && (this.shieldTimer -= dt) < 0) this.shieldTimer = 0;
     if (this.weaponTimer && (this.weaponTimer -= dt) < 0) {
-      this.weaponTimer = 0;
-      this.bulletType = 0;
+      this.setWeapon(0);
     }
 
     if ((this.partTimer -= dt) < 0) {
@@ -70,7 +87,7 @@ export default class Player extends Entity {
     super.draw(ctx);
 
     if (this.shieldTimer > 0) {
-      ctx.globalAlpha = 1 / this.startTimer * this.shieldTimer;
+      ctx.globalAlpha = 1 / this.startShieldTimer * this.shieldTimer;
       ctx.drawImage(this.shield, this.left - 9, this.top - 9);
       ctx.globalAlpha = 1;
     }

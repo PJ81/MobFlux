@@ -45,8 +45,6 @@ export const
   RELEASED = 0,
   PRESSED = 1,
 
-  COOLDWN_TIME = .2,
-
   RND = (mn: number, mx: number) => {
     return Math.floor(Math.random() * (mx - mn) + mn);
   };

@@ -29,7 +29,7 @@ export default class PlayState extends State {
     K.addKey(39, (k: number) => this.player.moveRight = k === Const.PRESSED);
     K.addKey(17, () => {
       if (this.player.shoot()) {
-        B.start(this.player.pos.x, this.player.top, this.player.bulletType);
+        B.start(this.player.pos.x, this.player.top, this.player.weaponType);
         S.play(0);
       }
     });
@@ -46,6 +46,11 @@ export default class PlayState extends State {
     this.player.update(dt);
     this.enemies.update(dt);
     this.powerup.update(dt);
+
+
+    if (this.player.weaponType === 2) {
+      B.setTarget(this.enemies.getEnemies().filter(e => e.alive));
+    }
 
     this.checkCollisions();
     return true;
