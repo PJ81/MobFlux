@@ -18,6 +18,7 @@ class Stone extends Entity {
     this.pos.y += this.velocity.y * dt * 3;
     this.angle += dt * this.turnSpd;
     if (this.angle > Const.TWO_PI) this.angle = 0;
+    this.alive = !((this.top - this.height) > Const.HEIGHT);
   }
 
   draw(ctx: CanvasRenderingContext2D) {
@@ -28,7 +29,6 @@ class Stone extends Entity {
     ctx.rotate(this.angle * this.turnDir);
     ctx.drawImage(this.imgFrames[this.animFrame], -w, -h);
     ctx.restore();
-    this.alive = !((this.top - this.height) > Const.HEIGHT);
   }
 }
 
@@ -43,7 +43,7 @@ export default class Stones {
 
     this.reset = () => this.stones.forEach(s => this.setStone(s));
 
-    for (let t = 0; t < 150; t++) {
+    for (let t = 0; t < 15; t++) {
       const s = new Stone();
       this.setStone(s);
       this.stones.push(s);

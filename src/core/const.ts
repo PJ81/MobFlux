@@ -47,4 +47,9 @@ export const
 
   RND = (mn: number, mx: number) => {
     return Math.floor(Math.random() * (mx - mn) + mn);
+  },
+
+  RNDArr = (arr: any[]): any => {
+    if (arr.length < 1) return null;
+    return arr[Math.floor(Math.random() * arr.length)];
   };

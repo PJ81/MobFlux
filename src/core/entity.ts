@@ -36,8 +36,8 @@ export default class Entity {
     this.imgFrames = [];
   }
 
-  checkBounds() {
-    this.alive = !(this.left > Const.WIDTH || this.top > Const.HEIGHT || this.right < 0 || this.bottom < 0);
+  inBounds(): boolean {
+    return !(this.left > Const.WIDTH || this.top > Const.HEIGHT || this.right < 0 || this.bottom < 0);
   }
 
   draw(ctx: CanvasRenderingContext2D) {

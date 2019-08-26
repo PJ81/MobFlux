@@ -56,4 +56,20 @@ export default class Point {
   angleBetween(pt: Point) {
     return Math.atan2(-(pt.y - this.y), -(pt.x - this.x));
   }
+
+  angle(): number {
+    return Math.atan2(this.y, this.x);
+  }
+
+  magSq(): number {
+    return this.x * this.x + this.y * this.y;
+  }
+
+  limit(max: number) {
+    if (this.magSq() > max * max) {
+      this.normalize();
+      this.x *= max;
+      this.y *= max;
+    }
+  }
 }

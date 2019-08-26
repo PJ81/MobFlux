@@ -31,6 +31,8 @@ export default class Player extends Entity {
     this.weaponType = 0;
     this.partTimer = this.weaponTimer = 0;
     this.activateShield = (t: number) => this.startShieldTimer = this.shieldTimer = t;
+
+    this.setWeapon(2);
   }
 
   shoot(): boolean {
@@ -42,7 +44,7 @@ export default class Player extends Entity {
   }
 
   setWeapon(w: number) {
-    this.weaponType = w;
+    this.weaponType = 2;
     switch (w) {
       case 0:
         this.coolDownTime = this.coolDownTimeR = .2;
