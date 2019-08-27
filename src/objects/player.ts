@@ -19,6 +19,8 @@ export default class Player extends Entity {
 
   constructor(x: number, y: number, img: HTMLImageElement[]) {
     super(x, y);
+    this.activateShield = (t: number) => this.startShieldTimer = this.shieldTimer = t;
+
     this.velocity.set(120, 0);
     this.energy = 100;
     this.coolDownTimeR = .2;
@@ -27,12 +29,13 @@ export default class Player extends Entity {
     this.setImage(img[0]);
     this.shield = img[1];
     this.lifeBar = img[2]
-    this.startShieldTimer = this.shieldTimer = 10;
-    this.weaponType = 0;
-    this.partTimer = this.weaponTimer = 0;
-    this.activateShield = (t: number) => this.startShieldTimer = this.shieldTimer = t;
-
-    this.setWeapon(2);
+    this.startShieldTimer;
+    this.shieldTimer;
+    this.activateShield(10);
+    this.weaponType;
+    this.partTimer;
+    this.weaponTimer;
+    this.setWeapon(0);
   }
 
   shoot(): boolean {
@@ -44,19 +47,19 @@ export default class Player extends Entity {
   }
 
   setWeapon(w: number) {
-    this.weaponType = 2;
+    this.weaponType = w;
     switch (w) {
       case 0:
         this.coolDownTime = this.coolDownTimeR = .2;
         this.weaponTimer = 0;
         break;
       case 1:
-        this.coolDownTime = this.coolDownTimeR = .3;
-        this.weaponTimer = 10;
+        this.coolDownTime = this.coolDownTimeR = .35;
+        this.weaponTimer = 8;
         break;
       case 2:
-        this.coolDownTime = this.coolDownTimeR = .4;
-        this.weaponTimer = 14;
+        this.coolDownTime = this.coolDownTimeR = .6;
+        this.weaponTimer = 12;
         break;
     }
   }

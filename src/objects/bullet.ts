@@ -11,7 +11,7 @@ export default class Bullet extends Entity {
 
   constructor() {
     super(0, 0);
-    this.partTime = [[0, .015], [0, .04], [0, .05], [0, 0], [0, 0], [0, 0]];
+    this.partTime = [[0, .015], [0, .04], [0, .025], [0, 0], [0, 0], [0, 0]];
     this.alive = false;
     this.target = null;
     this.angle = 0;
@@ -21,9 +21,9 @@ export default class Bullet extends Entity {
   steer(): Point {
     if (this.target && this.target.alive) {
       const desired = this.pos.heading(this.target.pos);
-      desired.set(desired.x * 250, desired.y * 250);
+      desired.set(desired.x * 350, desired.y * 350);
       desired.set(desired.x - this.velocity.x, desired.y - this.velocity.y);
-      desired.limit(.2);
+      desired.limit(.5);
       this.lastDes.set(desired.x, desired.y);
       return desired;
     }
@@ -70,12 +70,12 @@ export default class Bullet extends Entity {
         const st = this.steer();
         this.velocity.x += st.x;
         this.velocity.y += st.y;
-        this.velocity.limit(250);
+        this.velocity.limit(350);
         this.angle = this.velocity.angle();
         if (this.partTime[this.type][0] < 0) {
-          const pt = new Point(this.left - 2, Const.RND(this.top, this.bottom));
-          pt.rotate(-this.angle);
-          P.addParticle(pt.y, pt.x + this.pos.y, 2, "rgba(221,221,24,");
+          const pt = new Point(Const.RND(-2, 2), 0);
+          pt.rotate(this.angle);
+          P.addParticle(this.pos.x + pt.x, this.pos.y + pt.y, 2, "rgba(221,221,24,");
         }
         break;
       // enemies bullets
