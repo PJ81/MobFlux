@@ -19,7 +19,7 @@ export default class PlayState extends State {
     this.enemies = new Enemies();
     this.powerup = new Powerups();
 
-    B.setImages([R.images[Const.BLT0], R.images[Const.BLT1], R.images[Const.BLT2], R.images[Const.BLT3]]);
+    B.setImages([R.images[Const.BLT0], R.images[Const.BLT1], R.images[Const.BLT2], R.images[Const.BLT3], R.images[Const.BLT4], R.images[Const.BLT5]]);
     B.reset();
 
     K.clear();
