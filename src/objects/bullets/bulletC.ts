@@ -1,8 +1,8 @@
-import * as Const from "../core/const.js";
+import * as Const from "../../core/const.js";
 import Bullet from "./bullet.js";
-import Point from "../core/point.js";
-import Entity from "../core/entity.js";
-import InitObj from "./initBltObj.js";
+import Point from "../../core/point.js";
+import Entity from "../../core/entity.js";
+import InitObj from "../../core/initBltObj.js";
 
 export default class BulletC extends Bullet {
   lastDes: Point;

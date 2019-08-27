@@ -1,5 +1,5 @@
 import State from "./state.js";
-import Stones from "../objects/stones.js";
+import Stones from "../objects/enemies/stones.js";
 
 export default class StateStn extends State {
   stones: Stones;

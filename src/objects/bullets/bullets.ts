@@ -1,10 +1,10 @@
 import Bullet from "./bullet.js";
-import * as Const from "../core/const.js";
-import Entity from "../core/entity.js";
+import * as Const from "../../core/const.js";
+import Entity from "../../core/entity.js";
 import BulletA from "./bulletA.js";
 import BulletB from "./bulletB.js";
 import BulletC from "./bulletC.js";
-import InitObj from "./initBltObj.js";
+import InitObj from "../../core/initBltObj.js";
 
 export default class Bullets {
   bullets: Bullet[];

@@ -2,9 +2,9 @@ import * as Const from "../core/const.js";
 import State from "./state.js";
 import Sound from "../core/sound.js";
 import Player from "../objects/player.js";
-import Enemies from "../enemies/enemies.js";
+import Enemies from "../objects/enemies/enemies.js";
 import Powerups from "../objects/powerup.js";
-import Bullet from "../objects/bullet.js";
+import Bullet from "../objects/bullets/bullet.js";
 import { R, K, B, S, P } from "../core/gameObj.js";
 
 export default class PlayState extends State {

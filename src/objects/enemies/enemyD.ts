@@ -1,6 +1,6 @@
-import * as Const from "../core/const.js"
-import Entity from "../core/entity";
-import { R } from "../core/gameObj.js";
+import * as Const from "../../core/const.js"
+import Entity from "../../core/entity";
+import { R } from "../../core/gameObj.js";
 
 class EnemyD extends Entity {
   constructor() {

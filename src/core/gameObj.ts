@@ -2,7 +2,7 @@ import Keyboard from "./keyboard.js";
 import Sound from "./sound.js";
 import Particles from "./particles.js";
 import Resource from "./resources.js";
-import Bullets from "../objects/bullets.js";
+import Bullets from "../objects/bullets/bullets.js";
 
 export const
   K = new Keyboard(),

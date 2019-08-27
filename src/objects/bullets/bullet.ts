@@ -1,6 +1,6 @@
-import Entity from "../core/entity.js";
-import { P } from "../core/gameObj.js";
-import InitObj from "./initBltObj.js";
+import Entity from "../../core/entity.js";
+import { P } from "../../core/gameObj.js";
+import InitObj from "../../core/initBltObj.js";
 
 export default class Bullet extends Entity {
   init(o: InitObj) {

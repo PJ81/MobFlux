@@ -1,6 +1,6 @@
-import * as Const from "../core/const.js";
+import * as Const from "../../core/const.js";
 import Bullet from "./bullet.js";
-import InitObj from "./initBltObj.js";
+import InitObj from "../../core/initBltObj.js";
 
 export default class BulletA extends Bullet {
   constructor() {
