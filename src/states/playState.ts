@@ -15,7 +15,7 @@ export default class PlayState extends State {
 
   constructor() {
     super();
-    this.player = new Player(0, 0, [R.images[Const.HERO], R.images[Const.SHLD], R.images[Const.LIFE]]);
+    this.player = new Player([R.images[Const.HERO], R.images[Const.SHLD], R.images[Const.LIFE]]);
     this.enemies = new Enemies();
     this.powerup = new Powerups();
 

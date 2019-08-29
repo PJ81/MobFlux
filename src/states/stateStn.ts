@@ -7,12 +7,9 @@ export default class StateStn extends State {
   constructor() {
     super();
     this.stones = new Stones();
-    this.start = () => this.stones.reset();
+    this.start = () => { this.stones.reset(); };
     this.update = (dt: number): boolean => { return this.stones.update(dt); }
     this.draw = (ctx: CanvasRenderingContext2D) => this.stones.draw(ctx);
-  }
-
-  getEntities(): any[] {
-    return this.stones.stones;
+    this.getEntities = (): any[] => { return this.stones.stones; }
   }
 }

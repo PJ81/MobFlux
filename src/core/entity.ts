@@ -18,7 +18,7 @@ export default class Entity {
   animFrame: number;
   imgFrames: HTMLImageElement[];
 
-  constructor(x: number, y: number) {
+  constructor(x: number = 0, y: number = 0) {
     this.alive = true;
     this.hasAnimation = false;
     this.pos = new Point(x, y);

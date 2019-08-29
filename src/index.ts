@@ -51,9 +51,9 @@ class Mob extends Game {
 
     R.loadImages([
       "boss.gif", "bul0.gif", "bul1.gif", "bul2.gif", "bul3.gif", "bul4.gif",
-      "bul5.gif", "enm0.gif", "enm1.gif", "enm2.gif", "enm3.gif", "pow0.gif",
-      "pow1.gif", "pow2.gif", "pow3.gif", "hero.gif", "shld.png", "stn0.gif",
-      "stn1.gif", "stn2.gif", "stn3.gif", "back.png", "life.png"
+      "bul5.gif", "enm0.gif", "enm1.gif", "enm2.gif", "enm3.gif", "enm4.gif",
+      "pow0.gif", "pow1.gif", "pow2.gif", "pow3.gif", "hero.gif", "shld.png",
+      "stn0.gif", "stn1.gif", "stn2.gif", "stn3.gif", "back.png", "life.png"
     ], () => {
       this.load();
       this.loop();

@@ -6,7 +6,7 @@ class Stone extends Entity {
   turnSpd: number;
 
   constructor() {
-    super(0, 0);
+    super();
     this.turnSpd;
     this.turnDir;
     this.score = 0;

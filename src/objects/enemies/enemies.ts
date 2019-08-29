@@ -5,34 +5,31 @@ import StateN3 from "../../states/stateN3.js";
 import StateStn from "../../states/stateStn.js";
 import StateBoss from "../../states/stateBoss.js";
 import Entity from "../../core/entity.js";
+import StateN4 from "../../states/stateN4.js";
 
 export default class Enemies {
   state: State;
-  stateN1: StateN1;
-  stateN2: StateN2;
-  stateN3: StateN3;
   stateStn: StateStn;
   stateBoss: StateBoss;
   states: State[];
   stateID: number;
   draw: (ctx: CanvasRenderingContext2D) => void;
-  setState: (s: number) => void;
 
   constructor() {
     this.draw = (ctx: CanvasRenderingContext2D) => this.state.draw(ctx);
-    this.setState = (s: number) => {
-      this.stateID = s;
-      this.state = this.states[this.stateID];
-      this.state.start();
-    };
-
-    this.states = [new StateN1(), new StateN2, new StateN3(), new StateStn(), new StateBoss()];
+    this.states = [new StateN1(), new StateN2, new StateN3(), new StateN4(), new StateBoss(), new StateStn()];
     this.stateID;
-    this.setState(3);
+    this.setState(5);
   }
 
   getEnemies(): Entity[] {
     return this.state.getEntities();
+  }
+
+  setState(s: number) {
+    this.stateID = s;
+    this.state = this.states[this.stateID];
+    this.state.start();
   }
 
   update(dt: number) {
@@ -48,10 +45,13 @@ export default class Enemies {
       case 2://n3
         this.setState(3);
         break;
-      case 3://stones
+      case 3://n4
         this.setState(4);
         break;
       case 4://boss
+        this.setState(5);
+        break;
+      case 5://stones
         this.setState(0);
         break;
     }

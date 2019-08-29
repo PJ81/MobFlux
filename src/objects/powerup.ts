@@ -7,7 +7,7 @@ class Powerup extends Entity {
   colors: string[];
 
   constructor() {
-    super(-60, -60);
+    super();
     this.velocity.set(0, 90);
     this.alive = false;
     this.partTimer = .1;

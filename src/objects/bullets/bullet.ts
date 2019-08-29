@@ -16,7 +16,7 @@ export default class Bullet extends Entity {
   startParticle: (x: number, y: number, s: number, c: string) => void;
 
   constructor() {
-    super(0, 0);
+    super();
     this.alive = false;
     this.angle = 0;
     this.startParticle = (x: number, y: number, s: number, c: string) => P.addParticle(x, y, s, c);

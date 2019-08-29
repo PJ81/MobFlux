@@ -17,8 +17,8 @@ export default class Player extends Entity {
   lifeBar: HTMLImageElement;
   activateShield: (t: number) => number;
 
-  constructor(x: number, y: number, img: HTMLImageElement[]) {
-    super(x, y);
+  constructor(img: HTMLImageElement[]) {
+    super();
     this.activateShield = (t: number) => this.startShieldTimer = this.shieldTimer = t;
 
     this.velocity.set(120, 0);
