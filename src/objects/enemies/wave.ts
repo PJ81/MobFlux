@@ -1,7 +1,12 @@
 import * as Const from "../../core/const.js"
+import Entity from "../../core/entity.js";
 import { R } from "../../core/gameObj.js";
 import Enemy from "./enemy.js";
-import Entity from "../../core/entity.js";
+import EnemyA from "./enemyA.js";
+import EnemyB from "./enemyB.js";
+import EnemyC from "./enemyC.js";
+import EnemyD from "./enemyD.js";
+import EnemyE from "./enemyE.js";
 
 export default class Wave {
   create() {
@@ -27,12 +32,17 @@ export default class Wave {
     this.baddies.forEach(e => { if (e.alive) e.draw(ctx); });
   }
 
-  startBadGuy(sc: number, en: number, hit: number, img: number) {
-    const e = new Entity();
-    e.score = sc;
-    e.energy = en;
-    e.hitScore = hit;
-    e.setImage(R.images[Const.BAD0]);
+  startBadGuy(img: number) {
+    let e: Enemy;
+    switch (img) {
+      case Const.BAD0: e = new EnemyA(); break;
+      case Const.BAD1: e = new EnemyB(); break;
+      case Const.BAD2: e = new EnemyC(); break;
+      case Const.BAD3: e = new EnemyD(); break;
+      case Const.BAD4: e = new EnemyE(); break;
+      default: e = new EnemyA(); break;
+    }
+    e.setImage(R.images[img]);
     this.baddies.push(e);
   }
 

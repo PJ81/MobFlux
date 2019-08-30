@@ -13,9 +13,9 @@ export default class WaveA extends Wave {
       b = this.baddiesCount[0][1] + Const.RND(2, 5);
 
     for (let x = 0; x < a; x++) {
-      this.startBadGuy(15, 20, 9.7, Const.BAD0);
+      this.startBadGuy(Const.BAD0);
       if (x < b) {
-        this.startBadGuy(25, 45, 19.4, Const.BAD1);
+        this.startBadGuy(Const.BAD1);
       }
     }
 

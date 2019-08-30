@@ -16,18 +16,18 @@ export default class WaveD extends Wave {
       e = this.baddiesCount[3][4] + Const.RND(2, 5);
 
     for (let x = 0; x < d; x++) {
-      this.startBadGuy(50, 80, 38, Const.BAD3);
+      this.startBadGuy(Const.BAD3);
       if (x < a) {
-        this.startBadGuy(15, 20, 9, Const.BAD0);
+        this.startBadGuy(Const.BAD0);
       }
       if (x < b) {
-        this.startBadGuy(25, 45, 19, Const.BAD1);
+        this.startBadGuy(Const.BAD1);
       }
       if (x < c) {
-        this.startBadGuy(35, 65, 29, Const.BAD2);
+        this.startBadGuy(Const.BAD2);
       }
       if (x < e) {
-        this.startBadGuy(70, 85, 43, Const.BAD4);
+        this.startBadGuy(Const.BAD4);
       }
     }
 
