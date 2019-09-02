@@ -2,10 +2,10 @@ import State from "../../states/state.js";
 import StateN1 from "../../states/stateN1.js";
 import StateN2 from "../../states/stateN2.js";
 import StateN3 from "../../states/stateN3.js";
+import StateN4 from "../../states/stateN4.js";
 import StateStn from "../../states/stateStn.js";
 import StateBoss from "../../states/stateBoss.js";
 import Entity from "../../core/entity.js";
-import StateN4 from "../../states/stateN4.js";
 
 export default class Enemies {
   state: State;

@@ -1,5 +1,4 @@
 import * as Const from "./const.js";
-import Resource from "./resources.js";
 
 export default class Game {
   draw() {

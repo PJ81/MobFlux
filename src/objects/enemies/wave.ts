@@ -18,7 +18,6 @@ export default class Wave {
 
   constructor() {
     this.baddies = [];
-    //this.baddiesCount = [[22, 15], [18, 25, 13], [11, 22, 25, 13], [5, 18, 25, 30, 16]];
     this.baddiesCount = [[17, 10], [13, 20, 8], [6, 7, 20, 8], [0, 13, 20, 25, 11]];
   }
 
@@ -29,7 +28,7 @@ export default class Wave {
   }
 
   draw(ctx: CanvasRenderingContext2D) {
-    this.baddies.forEach(e => { if (e.alive) e.draw(ctx); });
+    this.baddies.forEach(e => { if (e.alive && e.attacking) e.draw(ctx); });
   }
 
   startBadGuy(img: number) {
