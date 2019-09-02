@@ -5,12 +5,18 @@ export default class Enemy extends Entity {
   fireTime: number;
   waitTimer: number;
   attacking: boolean;
+  form: number;
+  angSpd: number;
+  travel: number;
 
   constructor() {
     super();
     this.fireTimer = 0;
     this.fireTime = 0;
     this.waitTimer = 0;
+    this.form = 0;
+    this.angSpd = 0
+    this.travel = 0;
     this.attacking = false;
   }
 }

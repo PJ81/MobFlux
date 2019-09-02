@@ -31,7 +31,7 @@ export default class Wave {
     this.baddies.forEach(e => { if (e.alive && e.attacking) e.draw(ctx); });
   }
 
-  startBadGuy(img: number) {
+  startBadGuy(img: number, wt: number) {
     let e: Enemy;
     switch (img) {
       case Const.BAD0: e = new EnemyA(); break;
@@ -41,7 +41,8 @@ export default class Wave {
       case Const.BAD4: e = new EnemyE(); break;
       default: e = new EnemyA(); break;
     }
-    e.setImage(R.images[img]);
+    e.waitTimer = wt;
+    e.setImage(R.images[img], 0);
     this.baddies.push(e);
   }
 

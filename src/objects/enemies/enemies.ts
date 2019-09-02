@@ -19,7 +19,7 @@ export default class Enemies {
     this.draw = (ctx: CanvasRenderingContext2D) => this.state.draw(ctx);
     this.states = [new StateN1(), new StateN2, new StateN3(), new StateN4(), new StateBoss(), new StateStn()];
     this.stateID;
-    this.setState(5);
+    this.setState(0);
   }
 
   getEnemies(): Entity[] {

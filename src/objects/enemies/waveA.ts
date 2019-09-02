@@ -12,10 +12,14 @@ export default class WaveA extends Wave {
     const a = this.baddiesCount[0][0] + Const.RND(2, 5),
       b = this.baddiesCount[0][1] + Const.RND(2, 5);
 
+    let wt = 2;
+
     for (let x = 0; x < a; x++) {
-      this.startBadGuy(Const.BAD0);
+      this.startBadGuy(Const.BAD0, wt);
+      wt += .5 + Math.random();
       if (x < b) {
-        this.startBadGuy(Const.BAD1);
+        this.startBadGuy(Const.BAD1, wt);
+        wt += .5 + Math.random();
       }
     }
 
