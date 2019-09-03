@@ -42,7 +42,7 @@ class Mob extends Game {
           break;
         case Const.PLAY:
           S.setVolume(Const.LOOP, .8);
-          S.playLoop(Const.LOOP);
+          //S.playLoop(Const.LOOP);
           this.state = new PlayState();
           break;
       }

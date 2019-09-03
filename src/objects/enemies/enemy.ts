@@ -19,4 +19,11 @@ export default class Enemy extends Entity {
     this.travel = 0;
     this.attacking = false;
   }
+
+  update(dt: number) {
+    if ((this.waitTimer -= dt) < 0) {
+      this.waitTimer = 0;
+      this.attacking = true;
+    }
+  }
 }

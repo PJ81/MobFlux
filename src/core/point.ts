@@ -53,8 +53,9 @@ export default class Point {
     return h;
   }
 
-  angleBetween(pt: Point) {
+  angleBetween(pt: Point): number {
     return Math.atan2(-(pt.y - this.y), -(pt.x - this.x));
+    //return Math.atan((pt.y - this.y) / (pt.x - this.x));
   }
 
   angle(): number {

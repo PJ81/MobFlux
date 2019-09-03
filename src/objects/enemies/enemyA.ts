@@ -55,10 +55,7 @@ export default class EnemyA extends Enemy {
         }
       }
     } else {
-      if ((this.waitTimer -= dt) < 0) {
-        this.waitTimer = 0;
-        this.attacking = true;
-      }
+      super.update(dt);
     }
   }
 }
