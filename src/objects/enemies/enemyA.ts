@@ -12,15 +12,23 @@ export default class EnemyA extends Enemy {
     this.angSpd = .5 * Math.random() * 3 + 1;
 
     if (this.form) {
-      this.travel = Math.random() * 60 + 60;
+      this.travel = Math.random() * 20 + 20;
       this.turnDir = 1;
       this.velocity.set(0, Math.random() * 20 + 10);
+      this.pos.set(Math.random() * (Const.WIDTH - 60) + 30, -10);
     } else {
-      this.velocity.set(Math.random() * 60 + 60, Math.random() * 10 + 15);
+      const hw = Const.WIDTH / 2;
+      this.velocity.set(Math.random() * 20 + 10, Math.random() * 10 + 5);
       this.travel = Math.random() * 4 + 1;
       this.turnDir = Math.random() < .5 ? -1 : 1;
+      this.pos.set(Math.random() * hw + (hw >> 1), -15);
     }
   }
+
+  // draw(ctx: CanvasRenderingContext2D) {
+  //   this.drawBox(ctx);
+  //   super.draw(ctx);
+  // }
 
   update(dt: number) {
     if (!this.waitTimer) {
@@ -34,8 +42,11 @@ export default class EnemyA extends Enemy {
         }
         if ((this.angle += dt * this.angSpd) > Const.TWO_PI) this.angle = 0;
       } else {
-        this.angle += dt * this.turnDir;
-        this.pos.y += this.velocity.y * dt;
+        if ((this.angle += dt * this.turnDir) > Const.TWO_PI) this.angle = 0;
+        const ddt = dt * 8;
+        this.pos.y += this.velocity.y * dt - this.velocity.x * ddt * Math.sin(this.angle) * Math.cos(this.angle);
+        this.pos.x += this.velocity.x * Math.cos(this.angle) * this.angSpd * ddt * Math.sin(this.angle * this.travel * ddt);
+
         if (this.top > Const.HEIGHT) {
           this.pos.set(Math.random() * hw + (hw >> 1), -this.height);
           this.turnDir = Math.random() < .5 ? -1 : 1;
