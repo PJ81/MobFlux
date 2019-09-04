@@ -36,6 +36,10 @@ export default class Entity {
     this.imgFrames = [];
   }
 
+  isVisible(): boolean {
+    return (this.left > 0 && this.right < Const.WIDTH && this.top > 0 && this.bottom < Const.HEIGHT);
+  }
+
   inBounds(): boolean {
     return !(this.left > Const.WIDTH || this.top > Const.HEIGHT || this.right < 0 || this.bottom < 0);
   }

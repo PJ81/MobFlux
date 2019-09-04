@@ -30,7 +30,7 @@ export default class PlayState extends State {
     K.addKey(17, () => {
       if (this.player.shoot()) {
         if (this.player.weaponType === 2) {
-          B.start(this.player.pos.x, this.player.top, 2, this.enemies.getEnemies().filter(e => e.alive && e.inBounds()));
+          B.start(this.player.pos.x, this.player.top, 2, this.enemies.getEnemies().filter(e => e.alive && e.isVisible()));
         } else {
           B.start(this.player.pos.x, this.player.top, this.player.weaponType, null);
         }
@@ -89,7 +89,7 @@ export default class PlayState extends State {
     for (const b of pb) {
       nextE:
       for (const e of en) {
-        if (b.alive && e.alive && collideBox(b.box, e.box)) {
+        if (b.alive && e.alive && e.inBounds() && collideBox(b.box, e.box)) {
           e.alive = false;
           b.alive = false;
           this.player.score += e.score;
